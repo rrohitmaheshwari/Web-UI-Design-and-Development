@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Survey</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+
+
+<div class="a">
+	<div class="headtitle"> Survey</div>
+	<div class="survey">
+		<div class="text"><p>How did you like the center ?</p></div>
+	</div>
+	<div class="comments">
+		<p>Comments:</p>
+		<textarea rows="4" cols="50" class="textbox" id="30"></textarea>
+	</div>
+	<div class="location">
+		<p>Select Text Area Location:</p>
+		<div class="city">
+			<p>City: </p>
+			<select id="city" name="browser" class="citytext">
+			    <option value="San Jose">San Jose</option>
+			    <option value="San Fransisco">San Fransisco</option>
+			    <option value="Mountain View">Mountain View</option>
+			    <option value="Palo Alto">Palo Alto</option>
+			    <option value="Sunnyvale">Sunnyvale</option>
+			</select>
+			<p>Room Number:</p>
+		
+			<select id="rooms" name="browser" class="citytext">
+			    <option value="Room 101">Room 101</option>
+			    <option value="Room 102">Room 102</option>
+			    <option value="Room 103">Room 103</option>
+			    <option value="Room 104">Room 104</option>
+			    <option value="Room 105">Room 105</option>
+			</select>
+			<p id="missing">Please fill all the fields.</p>
+		</div>
+	</div>
+	<div class="buttons">
+		
+	<button onclick="surveyNext()">Submit and Get Score</button>
+	<button onclick="surveySkip()">Skip and Get Score</button>
+	</div>
+</div>
+
+
+
+</body>
+</html>

@@ -39,4 +39,144 @@ text-align: center;
 }
 
 
+.a{
+	width: 70%;
+	margin-right: 15%;
+	margin-left: 15%;
+	margin-top: 20px;
+	background-color: white;
+	height: 335px;
+	border-color: black;
+	border-width: 1px;
+	border-radius: 5px;
+	border-style: solid;
+	padding-bottom: 4%;
+}
+
+.headtitle{
+border-radius: 5px 5px 0 0;
+background: rgb(227, 227, 227);
+padding: 5px;
+text-align: center;
+}
+
+
+.photo{
+	float: right;
+	margin-top: 20px;
+	margin-right: 10px;
+	width: 40%;
+	height: 260px;
+}
+
+.photo img{
+max-height: 80%
+}
+
+.left{
+	float: left;
+	margin-top: 20px;
+	margin-left: 20px;
+	height: 245px;
+	width: 50%;
+}
+
+
+.right{
+	float: right;
+	margin-top: 20px;
+	margin-right: 55px;
+	width: 40%;
+	height: 260px;
+}
+
+
+.noimg{
+float: left;
+margin-top: 20px;
+margin-left: 20px;
+}
+
+
+.buttons{
+float: left;
+margin-left: 5%;
+}
+
+.buttons button{
+padding: 10px;
+padding-left: 20px;
+padding-right: 20px;
+background-color: white;
+color: black;
+border: solid;
+border-radius: 12px;
+border-width: 1px;
+}
+
+.survey {
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 100%;
+}
+.scorecard{
+	margin-top: 10px;
+margin-left: 20px;
+margin-right: 20px;
+font-size: 12px;
+height: 350px;
+border: solid;
+border-width: 1px;
+padding-left: 21px;
+padding-top: 21px;
+}
+.comments{
+	margin-top: 10px;
+	margin-left: 30px;
+	width: 100%;
+}
+
+.comments p{
+	float: left;
+}
+
+.textbox{
+	float: left;
+	margin-left: 30px;
+	width:70%;
+	height:100px;
+	overflow:scroll;
+	scrollbar-base-color:#DEBB07;
+		border-style: solid;
+
+}
+
+.location{
+	float: left;
+	margin-left: 30px;
+	margin-top: 20px;
+	width: 85%;
+	height: 85px;
+}
+
+.location p{
+	margin-top: 0px;	
+}
+
+.city p{
+	float: left;
+}
+
+.citytext{
+	border-style: solid;
+	border-width: 1px;
+	float: left;
+	margin-left: 20px;
+	margin-right: 40px;
+}
+
+#missing{
+	display: none;
+	color: red;
+}
 
