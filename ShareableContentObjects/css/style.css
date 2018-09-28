@@ -1,0 +1,42 @@
+
+body{
+	margin: 0;
+	background-color: #f9f9f9;
+}
+
+.login{
+top: 50%;
+width: 20%;
+height: 84%;
+opacity: .8;
+margin: auto;
+margin-top: 10%;
+}
+
+.login .fields {
+border: 1px solid rgba(0, 0, 0, 0.57);
+border-radius: 4px;
+}
+
+.login .fields p{
+margin-top: 0px;
+background: rgb(227, 227, 227);
+padding: 5px;
+text-align: center;
+}
+
+.loginform {
+	padding: 10px;
+}
+
+.loginform input{
+	float: right;
+}
+
+#message{
+	display: none;
+	color: red;
+}
+
+
+
