@@ -1,7 +1,17 @@
 
 body{
 	margin: 0;
+	padding:0;
+	height:100%;
 	background-color: #f9f9f9;
+}
+
+
+footer{
+	position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: small;
 }
 
 .login{
@@ -92,7 +102,6 @@ max-height: 80%
 
 
 .noimg{
-float: left;
 margin-top: 20px;
 margin-left: 20px;
 }
@@ -179,4 +188,3 @@ padding-top: 21px;
 	display: none;
 	color: red;
 }
-

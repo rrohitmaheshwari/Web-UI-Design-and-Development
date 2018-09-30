@@ -9,7 +9,7 @@
 
 
 <div class="a">
-	<div class="headtitle"> Survey</div>
+	<header><div class="headtitle"> Survey</div></header>
 	<div class="survey">
 		<div class="text"><p>How did you like the center ?</p></div>
 	</div>
@@ -20,23 +20,24 @@
 	<div class="location">
 		<p>Select Text Area Location:</p>
 		<div class="city">
-			<p>City: </p>
-			<select id="city" name="browser" class="citytext">
-			    <option value="San Jose">San Jose</option>
-			    <option value="San Fransisco">San Fransisco</option>
-			    <option value="Mountain View">Mountain View</option>
-			    <option value="Palo Alto">Palo Alto</option>
-			    <option value="Sunnyvale">Sunnyvale</option>
-			</select>
+					<p>City: </p>
+		    <input list="city" name="browser" class="citytext">
+				<datalist id="city">
+			    <option value="San Jose">
+			    <option value="San Fransisco">
+			    <option value="Mountain View">
+			    <option value="Palo Alto">
+			    <option value="Sunnyvale">
+			</datalist>
 			<p>Room Number:</p>
-		
-			<select id="rooms" name="browser" class="citytext">
-			    <option value="Room 101">Room 101</option>
-			    <option value="Room 102">Room 102</option>
-			    <option value="Room 103">Room 103</option>
-			    <option value="Room 104">Room 104</option>
-			    <option value="Room 105">Room 105</option>
-			</select>
+			<input list="rooms" name="browser" class="citytext" class="citytext">
+			<datalist id="rooms">
+			    <option value="Room 101">
+			    <option value="Room 102">
+			    <option value="Room 103">
+			    <option value="Room 104">
+			    <option value="Room 105">
+			</datalist>
 			<p id="missing">Please fill all the fields.</p>
 		</div>
 	</div>
@@ -48,6 +49,6 @@
 </div>
 
 
-
+<footer>CMPE 280- Rohit Maheshwari</footer>
 </body>
 </html>
