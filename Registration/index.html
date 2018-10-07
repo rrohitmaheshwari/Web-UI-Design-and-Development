@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registeration Form</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="wrapper">
+
+		<div class="RegistrationTitle">
+			<i class="fa fa-arrow-circle-o-right RegistrationTitleIcon" aria-hidden="true"></i>
+		Registration</div>
+
+		<form id="regForm" method="post">
+			<div class="row">
+				<div class="column" align= "right">
+					User ID
+				</div>
+				<div class="column">
+					<input type="text" class="textfield" name="userid" id="userid" required>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column" align= "right">
+					Password
+				</div>
+				<div class="column">
+					<input type="Password" class="textfield" name="password" id="password"  onfocus="PasswordPop()" 
+					onblur="PasswordPopReverse()" oninput="checkPassword()" required>
+					<div class="popover__content" id="tips">
+						<p><b>Password Strength</b></p>
+						<div class="inner">
+							<p id="upper">1 upper-case letter</p>
+							<p id="lower">1 lower-case letter</p>
+							<p id="number">1 number</p>
+							<p id="length">8 or more characters</p>
+							<p id="char">Uses only these English characters: A-z, 0-9, @, -, _ and .</p>
+							<p id="same">Your password can not be the same as your user ID.</p><br>
+							<p><b>Strength:</b></p>
+
+							<progress id="progressBar" max='100' value='0' style="width: 100%;">
+
+							</progress>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="row">
+				<div class="column" align= "right">
+					Verify Password
+				</div>
+				<div class="column">
+					<input type="Password" id="verifypassword" required onblur="validatePassword()" onkeyup="validatePassword()">
+					<div class="PassNoMatch" id="PassNoMatch">Password Doesn't Match.</div>	
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="column" align= "right">
+					Email Address
+				</div>
+				<div class="column">
+					<input type="email" class="textfield" id="email" name="email" required>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column" align= "right">
+					Verify Email Address
+				</div>
+				<div class="column">
+					<input type="email" class="textfield" id="verifyemail" required>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="column" align= "right">
+					Security Question
+				</div>
+				<div class="column" style="width: 40%">
+					<select id="question1" required style="width: 97%">
+						<option value="">--</option>
+						<option value="Sum of 2 + 3 = ">Sum of 2 + 3 = </option>
+						<option value="Sum of 100 + 200 = ">Sum of 100 + 200 = </option>
+						<option value="23 x 100 =">23 x 100 =</option>
+						<option value="Capital of India?">Capital of India?</option>
+						<option value="Capital of USA?">Capital of USA?</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column" align= "right">
+					Security Answer
+				</div>
+				<div class="column">
+					<input type="text" class="textfield" id="answer1" required>
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="column" align= "right">
+					Security Question
+				</div>
+				<div class="column" style="width: 40%">
+					<select id="question2" required style="width: 97%">
+						<option value="">--</option>
+						<option value="Sum of 2 + 3 = ">Sum of 2 + 3 = </option>
+						<option value="Sum of 100 + 200 = ">Sum of 100 + 200 = </option>
+						<option value="23 x 100 =">23 x 100 =</option>
+						<option value="Capital of India?">Capital of India?</option>
+						<option value="Capital of USA?">Capital of USA?</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column" align= "right">
+					Security Answer
+				</div>
+				<div class="column">
+					<input type="text" class="textfield" id="answer2" required>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="column" align= "right">
+					Mobile
+				</div>
+				<div class="column">
+					<input type="tel" id="mobile" name="mobile"
+					placeholder="123-456-7890"
+					pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+					required >
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="column" align= "right">
+					Address
+				</div>
+				<div class="column">
+					<textarea id="address" name="address" rows="4" cols="70" required></textarea>
+				</div>
+			</div>
+
+
+
+
+			<div class="row">
+				<div class="column" align= "right">
+				</div>
+				<div class="rightText">
+					Areas you may be interested in, please select one or more:
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column" align= "right">
+				</div>
+				<div class="column">
+					<textarea id="address" name="address" rows="6" cols="70" required></textarea>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column" align= "right">
+				</div>
+				<div class="column">
+					<button class="button" value="submit">Register</button>
+					<input type="button" class="button" value="Reset" onclick="reset()">
+				</div>
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>

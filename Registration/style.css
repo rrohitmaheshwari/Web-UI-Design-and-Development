@@ -1,0 +1,109 @@
+body{
+
+}
+.wrapper{
+margin-left: 5%;
+margin-right: 15%;
+}
+
+.RegistrationTitle{
+    font-size: 40px;
+    line-height: 70px;
+    padding-left: 2%;
+    border-bottom: 2px;
+    border-color: #0000003b;
+    border-bottom-style: solid;
+    z-index: -1;
+}
+
+.RegistrationTitleIcon{
+	color: green;
+}
+
+
+.column {
+    float: left;
+    width: 15%;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.rightText{
+	 float: left;
+	  width: 100%;
+	   padding: 10px;
+    margin-left: 16%;
+    margin-top: -2%;
+    margin-bottom: -15px;
+    font-size: medium;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+.popover__content {
+    visibility: hidden;
+    position: absolute;
+	transform: translate(140px,-28px);
+    background-color: #ececec;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: auto;
+    line-height: 3px;
+    font-size: initial;
+}
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    left: -10px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #ececec transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0,-20px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+
+.progress{
+	height: 35px;
+	margin-left: 5%;
+	margin-bottom: 5px;
+	width: 90%;
+	border-style: solid;
+	border-width: .3px;
+	border-color: black;
+}
+
+.current{
+	height: inherit;
+	background-color: green;
+	width: 0;
+}
+
+.PassNoMatch
+{
+	color: red;
+	display: none;
+	font-size: initial;
+}
+
+.button{
+    background-color: #fdfdfd;
+    height: 30px;
+    width: 70px;
+}
+
