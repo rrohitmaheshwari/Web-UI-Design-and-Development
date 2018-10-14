@@ -1,138 +1,14 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <style>
-        ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #333;
-  }
-
-  li {
-      float: left;
-  }
-
-  li div {
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-  }
-
-  li div:hover:not(.active) {
-      background-color: #111;
-  }
-
-  .active {
-      background-color: #4CAF50;
-  }
-
-
-  .wrapper{
-  margin-left: 5%;
-  margin-right: 15%;
-  }
-
-  .column {
-      float: left;
-      width: 15%;
-      padding: 10px;
-      font-size: 20px;
-  }
-
-  .rightText{
-     float: left;
-      width: 100%;
-       padding: 10px;
-      margin-left: 16%;
-      margin-top: -2%;
-      margin-bottom: -15px;
-      font-size: medium;
-  }
-
-  .row:after {
-      content: "";
-      display: table;
-      clear: both;
-  }
-
-  #leftCol{
-        width: 56%;
-      padding-left: 10%;
-  }
-
-  </style>
-
+    <link rel="stylesheet" type="text/css" href="cssStyle.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-    </script>
-    <script>
-        $(document).ready(function(){
-
-  $("#Demographics").click(function() {
-      $('#DemographicsForm').css('display', 'block');
-      $('#HealthVitalsForm').css('display', 'none');
-      $('#ReportsForm').css('display', 'none');
-
-
-      $("#HealthVitals").removeClass("active");
-      $("#Reports").removeClass("active");
-      $("#Demographics").addClass("active");
-  });
-
-  $("#HealthVitals").click(function() {
-      $('#DemographicsForm').css('display', 'none');
-      $('#HealthVitalsForm').css('display', 'block');
-      $('#ReportsForm').css('display', 'none');
-
-     $("#Demographics").removeClass("active");
-      $("#HealthVitals").addClass("active");
-      $("#Reports").removeClass("active");
-
-  });
-
-  $("#Reports").click(function() {
-      $('#DemographicsForm').css('display', 'none');
-      $('#HealthVitalsForm').css('display', 'none');
-      $('#ReportsForm').css('display', 'block');
-
-     $("#Demographics").removeClass("active");
-      $("#HealthVitals").removeClass("active");
-      $("#Reports").addClass("active");
-  });
-
-    $("#capture").click(function() {
-     $('#video').css('display', 'none');
-     $('#myCanvas').css('display', 'block');
- $('#capture').css('display', 'none');
- $('#captureAnother').css('display', 'block');
- });
- 
- $("#captureAnother").click(function() {
-     $('#myCanvas').css('display', 'none');
-     $('#video').css('display', 'block');
-     $('#capture').css('display', 'block');
- $('#captureAnother').css('display', 'none');  
- });
-
-
-
-
-  });
-
-
-
-
-  </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="form.js"></script>
+    <script type="text/javascript" src="handleDB.js"></script>
 </head>
-
 <body onload="init();">
-
     <ul>
         <li>
             <div class="active" id="Demographics">Demographics</div>
@@ -141,16 +17,15 @@
             <div id="HealthVitals">Health Vitals</div>
         </li>
         <li>
-            <div id="Reports">Reports</div>
+            <div id="Reports"  onclick="loadForm3();" >Reports</div>
         </li>
     </ul>
 
     <div id="wrapper">
         <div id="DemographicsForm" style="display:block">
-            DemographicsForm
             <form id="regForm">
                 <div class="d-flex">
-                    <div id="leftCol" class="d-inline">
+                    <div id="leftCol" class="d-inline" style="border-right-color: green; border-right-style: inset;">
 
                         <div class="row">
                             <div class="column" align="right">
@@ -212,7 +87,7 @@
                     </div>
 
 
-                    <div id="righCol" class="d-inline">
+                    <div id="rightCol" class="d-inline" style="margin-left: 10%;">
 
 
                         <div class="row">
@@ -225,9 +100,8 @@
 
                         <div class="row">
                        <div class="column" align="right">
-<video onclick="snapshot(this);" width=200 height=200 id="video" autoplay></video>
-<canvas id="myCanvas" width="200" height="150" style="display:none;margin-top:25px"></canvas>
-<!-- <canvas id="myCanvas" width="200" height="150" style="display:none;margin-top:24px"></canvas> -->
+                           <video onclick="snapshot(this);" width=200 height=200 id="video" autoplay></video>
+                           <canvas id="myCanvas" width="200" height="150" style="display:none;margin-top:25px"></canvas>
                        </div>
                        <div class="column">
                        </div>
@@ -235,10 +109,11 @@
 
                    <div class="row">
                        <div class="column" align="right">
+                        <input type="button" class="btn btn-lg btn-success" value="Capture" onclick="snapshot();" id="capture">
+                           <input type="button" class="btn btn-lg btn-success" value="Capture Another" id="captureAnother"  onclick="startWebcam();" style="display:none;">
                        </div>
                        <div class="column">
-                        <input type="button" class="btn btn-lg btn-success" value="Capture" onclick="snapshot();" id="capture">
-<input type="button" class="btn btn-lg btn-success" value="Capture Another" id="captureAnother" style="display:none;">
+                        
                        </div>
                    </div>
             
@@ -252,17 +127,16 @@
 
     <div id="wrapper">
         <div id="HealthVitalsForm" style="display:none;">
-            HealthVitalsForm
             <form id="healthForm" method="post">
                 <div class="d-flex">
-                    <div id="leftCol" class="d-inline">
+                    <div id="leftCol" class="d-inline" style="border-right-color: green; border-right-style: inset;">
 
                         <div class="row">
                             <div class="column" align="right">
                                 Height
                             </div>
                             <div class="column">
-                                <input type="text" class="textfield" name="fname" id="fname" required>
+                                <input type="text" class="textfield" name="ht" id="ht" required>
                             </div>
                         </div>
 
@@ -272,7 +146,7 @@
                                 Weight
                             </div>
                             <div class="column">
-                                <input type="text" class="textfield" name="lname" id="lname" required>
+                                <input type="text" class="textfield" name="wt" id="wt" required>
                             </div>
                         </div>
 
@@ -281,7 +155,7 @@
                                 Body Temperature
                             </div>
                             <div class="column">
-                                <input type="text" class="textfield" name="age" id="age" required>
+                                <input type="text" class="textfield" name="bt" id="bt" required>
                             </div>
                         </div>
 
@@ -290,7 +164,7 @@
                                 Pulse Rate
                             </div>
                             <div class="column">
-                                <input type="text" class="textfield" name="other" id="other" required>
+                                <input type="text" class="textfield" name="pr" id="pr" required>
                             </div>
                         </div>
 
@@ -299,7 +173,7 @@
                                 BP
                             </div>
                             <div class="column">
-                                <input type="text" class="textfield" name="other" id="other" required>
+                                <input type="text" class="textfield" name="bp" id="bp" required>
                             </div>
                         </div>
 
@@ -307,13 +181,13 @@
                             <div class="column" align="right">
                             </div>
                             <div class="column">
-                                <button class="btn btn-lg btn-success" value="submit">Save</button>
+                                 <input type="button" class="btn btn-lg btn-success" value="Save" onclick="saveForm2();">
                             </div>
                         </div>
                     </div>
 
 
-                    <div id="righCol" class="d-inline">
+                    <div id="rightCol" class="d-inline" style="margin-left: 10%;">
 
 
                         <div class="row">
@@ -352,17 +226,17 @@
 
                 </div>
         </div>
-
-
         </form>
 
     </div>
     <div id="wrapper">
       <div id="ReportsForm" style="display:none; margin: 7%;">
 
-          Patients details
+        <div id="ReportTableTitle">
+        Patient Details
+            </div>
 
-        <table class="table table-primary">
+        <table id="ReportTable">
           <thead>
             <tr>
               <th>Name</th>
@@ -373,100 +247,13 @@
               <th>Notes</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Anna</td>
-              <td>Pitt</td>
-              <td>35</td>
-              <td>New York</td>
-              <td>New York</td>
-            </tr>
           </tbody>
+
         </table>
       </div>
     </div>
     </div>
-
 </body>
-
-<script>
-
-          navigator.getUserMedia = ( navigator.getUserMedia ||
-                             navigator.webkitGetUserMedia ||
-                             navigator.mozGetUserMedia ||
-                             navigator.msGetUserMedia);
-      var video;
-      var webcamStream;
-            var canvas, ctx;
-
-
-
-
-
-
-      function startWebcam() {
-        if (navigator.getUserMedia) {
-           navigator.getUserMedia (
-
-              {
-                 video: true,
-                 audio: false
-              },
-
-              function(localMediaStream) {
-                  video = document.querySelector('video');
-                 video.src = window.URL.createObjectURL(localMediaStream);
-                 webcamStream = localMediaStream;
-              },
-
-              function(err) {
-                 console.log("The following error occured: " + err);
-              }
-           );
-        } else {
-           console.log("getUserMedia not supported");
-        }  
-      }
-
-      function stopWebcam() {
-  webcamStream.stop();
-  }
-
-    
-
-
-
-
-      function init() {
-        canvas = document.getElementById("myCanvas");
-        ctx = canvas.getContext('2d');
-              startWebcam();
-      }
-
-      function snapshot() {
-        ctx.drawImage(video, 0,0, canvas.width, canvas.height);
-        stopWebcam();
-      }
-
-
-      function saveForm1() {
-          var fname = document.getElementById("fname").value;
-          var lname = document.getElementById("lname").value;
-          var gender = document.getElementById("gender").value;
-          var age = document.getElementById("age").value;
-          var other = document.getElementById("other").value;
-
-          var canvas = document.getElementById("myCanvas");
-          var photo = canvas.toDataURL();
- 
-
-
-alert(fname+" - " +lname+" - " +gender+" - " +age+" - " +other+" - " +photo);
-
-      }
-
-
-  </script>
-
 </html>

@@ -1,0 +1,95 @@
+ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+  }
+
+  li {
+      float: left;
+  }
+
+  li div {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+  }
+
+  li div:hover:not(.active) {
+      background-color: #111;
+  }
+
+  .active {
+      background-color: #4CAF50;
+  }
+
+
+  .wrapper{
+  margin-left: 5%;
+  margin-right: 15%;
+  }
+
+  .column {
+      float: left;
+      width: 30%;
+      padding: 10px;
+      font-size: 20px;
+  }
+
+  .rightText{
+     float: left;
+      width: 100%;
+       padding: 10px;
+      margin-left: 16%;
+      margin-top: -2%;
+      margin-bottom: -15px;
+      font-size: medium;
+  }
+
+  .row:after {
+      content: "";
+      display: table;
+      clear: both;
+  }
+
+  #leftCol{
+        width: 56%;
+      padding-left: 10%;
+  }
+
+
+#ReportTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#ReportTable td, #ReportTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#ReportTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#ReportTable tr:hover {background-color: #ddd;}
+
+#ReportTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#ReportTableTitle{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 10px;
+    font-size: 17px;
+    background-color: #1a761e;
+    color: white;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
