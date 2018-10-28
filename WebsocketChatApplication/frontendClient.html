@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebSockets - Simple chat</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+    * { 
+        font-family:tahoma;
+        font-size:12px;
+        padding:0px; 
+        margin:0px; 
+    }
+    p { 
+        line-height:7px; 
+    }
+    div {
+        width:500px; 
+        margin-left:auto; 
+        margin-right:auto;
+    }
+    #content { 
+        padding:5px; 
+        background:#ddd; 
+        border-radius:5px; 
+        overflow-y: scroll;
+        border:1px solid #CCC;
+        margin-top:10px; 
+        height: 160px; 
+    }
+    #input { 
+        border-radius:2px;
+        border:1px solid #ccc;
+        margin-top:10px; 
+        padding:5px; 
+        width:400px;  
+    }
+    #status { 
+        width:88px; 
+        display:block; 
+        float:left; 
+        margin-top:10px; 
+    }
+    #userType {
+        padding-top: 10px;
+    }
+     </style>
+ </head>
+
+ <body>
+    <div id="content"></div>
+    <div>
+        <span id="status">Trying again..</span>
+        <input type="text" id="input" disabled="disabled"   style = "display:block";/>
+        <div id="userType" style = "display:none";> 
+            <button id="docButton" type="button" class="btn btn-primary">Doctor</button> 
+            or 
+            <button id="patButton" type="button" class="btn btn-success">Patient</button> </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+
+$(function () {
+    "use strict";
+
+    var content = $('#content');
+    var input = $('#input');
+    var status = $('#status');
+    var userType = $('#userType');
+
+    var myName = false;
+
+
+    $('#docButton').click(function() {
+        myName="Doctor";
+        input.css('display', 'block');  
+        input.removeAttr('disabled').focus();
+        userType.css('display', 'none');
+        status.text('Doctor:');   
+    });
+
+
+    $('#patButton').click(function() {
+        myName="Patient";
+        input.css('display', 'block');  
+        input.removeAttr('disabled').focus();
+        userType.css('display', 'none');   
+        status.text('Patient:');
+    });
+
+    // if user is running mozilla then use it's built-in WebSocket
+    window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+    // in case browser doesn't support wensocket
+    if (!window.WebSocket) {
+        content.html($('<p>', { text: 'Sorry, but your browser doesn\'t '
+            + 'support WebSockets.'} ));
+        input.hide();
+        $('span').hide();
+        return;
+    }
+
+    // open connection
+    var connection = new WebSocket('ws://127.0.0.1:8080');
+
+    connection.onopen = function () {
+        // first we want users to enter their names
+        // input.removeAttr('disabled');
+        status.text('Choose Type:');
+        // userType.style.display = "block";
+        userType.css('display', 'block');
+        input.css('display', 'none');    
+    };
+
+    connection.onerror = function (error) {
+        // just in there were some problems with conenction...
+        content.html($('<p>', { text: 'Cannot connect to WebSocket Server' } ));
+    };
+
+    // handling incoming messages
+    connection.onmessage = function (message) {
+
+        var json = JSON.parse(message.data);
+        console.log(json);
+        addMessage(json, new Date());
+
+    };
+
+    /**
+     * Sending mesage after pressing Enter key
+     */
+     input.keydown(function(e) {
+        if (e.keyCode === 13) {
+            var msg = $(this).val();
+            if (!msg) {
+                return;
+            }
+            let sendMsg= JSON.stringify({sender:myName ,message: msg })
+            connection.send(sendMsg);
+            $(this).val('');
+
+        }
+    });
+
+    /**
+     * Retrying to connect to websocket after 3 seconds
+     */
+     setInterval(function() {
+        if (connection.readyState !== 1) {
+            status.text('Error');
+            input.attr('disabled', 'disabled').val('Unable to connect to WebSocket server.');
+        }
+    }, 3000);
+
+    /**
+     * Adding message to the chat window
+     */
+     function addMessage(data, dt) {
+        if(data.sender==='Doctor')
+        {
+            var col="color: blue;";
+        }
+        else
+        {
+         var col="color: green;"; 
+     }
+     content.append('<p><span><b style="background: #ddd;'+col+'">' + data.sender + '</b></span>@[' +
+         + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
+         + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())+ ':'
+         + (dt.getSeconds() < 10 ? '0' + dt.getSeconds() : dt.getSeconds())
+         + '] : ' + data.message + '</p>');
+ }
+});
+
+</script>
+</body>
+</html>
