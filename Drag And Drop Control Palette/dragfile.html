@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+.source_rectangle {
+
+	background-color: #ffffff;
+	text-align: center;
+}
+
+
+.source_circle{
+	background-color: #ffffff;
+	text-align: center;
+}
+
+#mydivheader {
+	padding: 10px;
+	cursor: move;
+	z-index: 10;
+	background-color: #2196F3;
+	color: #fff;
+}
+
+#source{
+	border-style: solid;
+	border-color: black;
+	border-width: thin;
+	padding: 10px;
+}
+
+#target
+{
+	border-style: solid;
+	border-color: black;
+	border-width: thin;
+	padding: 10px;
+	height: 500px;
+}
+
+#target>div{
+	position: absolute;
+	z-index: 9;
+}
+
+.dragged{
+	background-color: lightgrey;
+}
+
+
+</style>
+<body>
+
+	<h1>Drag and drop control palette HTML Application.</h1>
+
+	<p>Click and hold the mouse button down while moving the DIV element</p>
+
+	<div id="source" style="display: flex;">
+
+		<div  id="source_rectangle" class="rectangle" draggable="true">
+			<svg width="100" height="100" >
+			<rect x="0" y="0" width="100" height="100"
+				style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9" />
+			</svg>
+		</div>
+
+
+
+		<div id="source_circle" class="circle" draggable="true">
+			<svg width="100" height="100">
+				<circle cx="50" cy="50" r="40" style="fill:blue;stroke:pink;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9"  />
+			</svg>
+		</div>
+
+
+		<div id="source_triangle" class="triangle" draggable="true">
+			<svg height="100" width="100">
+				<polygon points="50,12 20,80 80,80" style="fill:blue;stroke:pink;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+			</svg>
+		</div>
+
+		<div id="source_arrow" class="arrow" draggable="true">
+			<svg height="100" width="100">
+				<polygon points="2 40,40 40,40 2,98 50,40,98,40 60,2 60" style="fill:blue;stroke:pink;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+			</svg>
+		</div>
+
+	</div>
+
+</div>
+
+
+<div id="target">
+	<div  id="rectangle" class="rectangle" style="display:none;">
+		<svg width="100" height="100" >
+			<rect x="0" y="0" width="100" height="100"
+			style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9" />
+		</svg>
+	</div>
+
+
+
+	<div id="circle" class="circle" style="display:none;">
+		<svg width="100" height="100">
+			<circle cx="50" cy="50" r="40" style="fill:blue;stroke:pink;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9"  />
+		</svg>
+	</div>
+
+	<div id="triangle" class="triangle" style="display:none;">
+		<svg height="100" width="100">
+			<polygon points="50,12 20,80 80,80" style="fill:blue;stroke:pink;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+		</svg>
+	</div>
+
+
+	<div id="arrow" class="arrow" style="display:none;">
+		<svg height="100" width="100">
+			<polygon points="2 40,40 40,40 2,98 50,40,98,40 60,2 60" style="fill:blue;stroke:pink;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+		</svg>
+	</div>
+
+</div>
+
+</div>
+<script>
+//Make the DIV element draggagle:
+dragElement(document.getElementById("rectangle"));
+dragElement(document.getElementById("circle"));
+dragElement(document.getElementById("triangle"));
+dragElement(document.getElementById("arrow"));
+function dragElement(elmnt) {
+	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	if (document.getElementById(elmnt.id + "header")) {
+		/* if present, the header is where you move the DIV from:*/
+		document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+	} else {
+		/* otherwise, move the DIV from anywhere inside the DIV:*/
+		elmnt.onmousedown = dragMouseDown;
+	}
+
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+
+    document.onmousemove = elementDrag;
+}
+
+function elementDrag(e) {
+	e = e || window.event;
+	e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    if((elmnt.offsetTop - pos2)>244&&(elmnt.offsetTop - pos2)<660)
+    {
+    	elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+}
+
+function closeDragElement() {
+	/* stop moving when mouse button is released:*/
+	document.onmouseup = null;
+	document.onmousemove = null;
+}
+}
+
+
+var src = document.getElementById("source");
+var target = document.getElementById("target");
+var draggedID;
+target.ondragenter = handleDrag;
+target.ondragover = handleDrag;
+
+target.ondrop = function(e) {
+	if(draggedID=="source_rectangle")
+		var newElem = document.getElementById("rectangle").cloneNode(true);
+	else if(draggedID=="source_circle")
+		var newElem = document.getElementById("circle").cloneNode(true);
+	else if(draggedID=="source_triangle")
+		var newElem = document.getElementById("triangle").cloneNode(true);
+	else if(draggedID=="source_arrow")
+		var newElem = document.getElementById("arrow").cloneNode(true);
+	console.log(newElem);
+	console.log(e);
+	newElem.style="top: +"+(e.clientX)+"+px; left: "+e.clientY+"px;";
+	target.appendChild(newElem);
+	dragElement(newElem);
+	e.preventDefault();
+}
+function handleDrag(e) {
+	e.preventDefault();
+}
+src.ondragstart = function(e) {
+	draggedID = e.target.id;
+	target.classList.add("dragged");
+
+}
+src.ondragend = function(e) {
+	target.classList.remove("dragged");
+}
+
+</script>
+</body>
+</html>
+
