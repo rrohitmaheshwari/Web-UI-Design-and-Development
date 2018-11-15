@@ -68,7 +68,7 @@ class RadioButtonsGroup extends React.Component {
         return (
             <div className={classes.root}>
 
-                <FormControl component="fieldset" className={classes.formControl}>
+                <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
                     <FormLabel component="legend">HANDMADE TOSSED</FormLabel>
                     <p>Garlic-seasoned crust with a rich, buttery taste...</p>
                     <RadioGroup
@@ -85,7 +85,7 @@ class RadioButtonsGroup extends React.Component {
                     </RadioGroup>
                 </FormControl>
 
-                <FormControl component="fieldset" className={classes.formControl}>
+                <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
                     <FormLabel component="legend">HANDMADE PAN</FormLabel>
                     <p>Two layers of cheese toppings to the edge, and a crust thats bakes up golden and crispy with a
                         buttery taste.</p>
@@ -100,7 +100,7 @@ class RadioButtonsGroup extends React.Component {
                     </RadioGroup>
                 </FormControl>
 
-                <FormControl component="fieldset" className={classes.formControl}>
+                <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
                     <FormLabel component="legend">CRUNCHY THIN CRUST</FormLabel>
                     <p>Thin enough for the optimum crispy to crunchy ratio.</p>
                     <RadioGroup
@@ -115,7 +115,7 @@ class RadioButtonsGroup extends React.Component {
                     </RadioGroup>
                 </FormControl>
 
-                <FormControl component="fieldset" className={classes.formControl}>
+                <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
                     <FormLabel component="legend">BROOKLYN STYLE</FormLabel>
                     <p>Hand streched to be big, thin, and perfectly foldable.</p>
                     <RadioGroup
