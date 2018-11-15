@@ -7,6 +7,7 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Step1 from './step1';
+import Step2 from './step2';
 
 const styles = theme => ({
     root: {
@@ -44,9 +45,9 @@ function getSteps() {
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return <Step1/>
+            return <Step1/>;
         case 1:
-            return 'What is an ad group anyways?';
+            return <Step2/>;
         case 2:
             return 'This is the bit I really care about!';
         default:
