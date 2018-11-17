@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Step1 from './step1';
 import Step2 from './step2';
+import Step3 from './step3';
+import Dashboard from './dashboard';
 
 const styles = theme => ({
     root: {
@@ -19,7 +21,7 @@ const styles = theme => ({
     instructions: {
         marginTop: theme.spacing.unit,
         marginBottom: theme.spacing.unit,
-    },connectorActive: {
+    }, connectorActive: {
         '& $connectorLine': {
             borderColor: theme.palette.secondary.main,
         },
@@ -38,6 +40,7 @@ const styles = theme => ({
         transition: theme.transitions.create('border-color'),
     },
 });
+
 function getSteps() {
     return ['SIZE & CRUST', 'CHEESE & SAUCE', 'TOPPINGS'];
 }
@@ -49,7 +52,7 @@ function getStepContent(step) {
         case 1:
             return <Step2/>;
         case 2:
-            return 'This is the bit I really care about!';
+            return <Step3/>;
         default:
             return 'Unknown step';
     }
@@ -63,8 +66,8 @@ class HorizontalLinearStepper extends React.Component {
 
 
     handleNext = () => {
-        const { activeStep } = this.state;
-        let { skipped } = this.state;
+        const {activeStep} = this.state;
+        let {skipped} = this.state;
         this.setState({
             activeStep: activeStep + 1,
             skipped,
@@ -85,11 +88,10 @@ class HorizontalLinearStepper extends React.Component {
     };
 
 
-
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         const steps = getSteps();
-        const { activeStep } = this.state;
+        const {activeStep} = this.state;
         const connector = (
             <StepConnector
                 classes={{
@@ -117,17 +119,15 @@ class HorizontalLinearStepper extends React.Component {
                 <div id={"buttons"}>
                     {activeStep === steps.length ? (
                         <div>
-                            <Typography className={classes.instructions}>
-                                All steps completed - you&quot;re finished
-                            </Typography>
+                            <Dashboard/>
                             <Button onClick={this.handleReset} className={classes.button}>
                                 Reset
                             </Button>
                         </div>
                     ) : (
-                        <div >
-                         {getStepContent(activeStep)}
-                            <div >
+                        <div>
+                            {getStepContent(activeStep)}
+                            <div>
                                 <Button
                                     disabled={activeStep === 0}
                                     onClick={this.handleBack}

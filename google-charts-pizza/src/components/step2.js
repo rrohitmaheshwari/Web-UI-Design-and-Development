@@ -70,6 +70,7 @@ class RadioButtonsGroup extends React.Component {
 
 
                     {this.state.sauceCheck &&
+                        <div>
                     <RadioGroup
                         aria-label="Sauce Selected"
                         name="sauceSelected"
@@ -85,6 +86,10 @@ class RadioButtonsGroup extends React.Component {
                                           label="Garlic Parmesan White Sauce"/>
                         <FormControlLabel value="Alfredo" control={<Radio/>} label="Alfredo Sauce"/>
                     </RadioGroup>
+
+
+
+                        </div>
                     }
 
                 </FormControl>
