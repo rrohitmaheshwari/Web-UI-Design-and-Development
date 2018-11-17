@@ -77,7 +77,7 @@ class RadioButtonsGroup extends React.Component {
                         width="100%"
                         height="400px"
                         chartType="PieChart"
-                        loader={<div>Loading Chart</div>}
+                        loader={<div>Loading Pie hart</div>}
                         data={dataPie}
                         options={{
                             title: 'My Daily Activities',
@@ -92,6 +92,7 @@ class RadioButtonsGroup extends React.Component {
                         chartType="Sankey"
                         width="100%"
                         height="400px"
+                        loader={<div>Loading Sankey Chart</div>}
                         data={dataSankey}
                         options={options}
                     />

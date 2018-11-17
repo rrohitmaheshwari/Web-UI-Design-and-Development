@@ -40,6 +40,16 @@ class RadioButtonsGroup extends React.Component {
         BlackOlives: '',
         Garlic: '',
 
+        GreenPeppers: '',
+        JalepenoPeppers: '',
+        Mushrooms: '',
+        Pineapple: '',
+        Onions: '',
+        RoastedRedPeppers: '',
+        Spinach: '',
+        DicedTomatoes: '',
+        HotSauce: '',
+
 
     };
 
@@ -167,6 +177,67 @@ class RadioButtonsGroup extends React.Component {
                                 <Checkbox checked={this.state.Garlic} onChange={this.handleChange('Garlic')} value="Garlic" />
                             }
                             label="Garlic"
+                        />
+                    </FormGroup>
+
+                </FormControl>
+
+                <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
+                    <FormLabel component="legend">{' '}</FormLabel>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.GreenPeppers} onChange={this.handleChange('GreenPeppers')} value="GreenPeppers" />
+                            }
+                            label="Green Peppers"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.JalepenoPeppers} onChange={this.handleChange('JalepenoPeppers')} value="JalepenoPeppers" />
+                            }
+                            label="Jalepeno Peppers"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.Mushrooms} onChange={this.handleChange('Mushrooms')} value="Mushrooms" />
+                            }
+                            label="Mushrooms"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.Pineapple} onChange={this.handleChange('Pineapple')} value="Pineapple" />
+                            }
+                            label="Pineapple"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.Onions} onChange={this.handleChange('Onions')} value="Onions" />
+                            }
+                            label="Onions"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.RoastedRedPeppers} onChange={this.handleChange('RoastedRedPeppers')} value="RoastedRedPeppers" />
+                            }
+                            label="Roasted Red Peppers"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.Spinach} onChange={this.handleChange('Spinach')} value="Spinach" />
+                            }
+                            label="Spinach"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.DicedTomatoes} onChange={this.handleChange('DicedTomatoes')} value="DicedTomatoes" />
+                            }
+                            label="Diced Tomatoes"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={this.state.HotSauce} onChange={this.handleChange('HotSauce')} value="HotSauce" />
+                            }
+                            label="Hot Sauce"
                         />
                     </FormGroup>
 
