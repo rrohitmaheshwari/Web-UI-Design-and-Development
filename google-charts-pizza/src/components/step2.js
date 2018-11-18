@@ -43,7 +43,7 @@ class RadioButtonsGroup extends React.Component {
         localStorage.setItem('step2', JSON.stringify(this.state));
 
         return (
-            <div className={classes.root}>
+            <div className={classes.root} style={{textAlign: "left"}}>
 
                 <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
                     <FormLabel component="legend">CHEESE?</FormLabel>
