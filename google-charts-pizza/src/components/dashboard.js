@@ -17,53 +17,53 @@ const styles = theme => ({
     },
 });
 
-const dataSankey = [
-    ['From', 'To', 'Weight'],
-    ['Brazil', 'Portugal', 5],
-    ['Brazil', 'France', 1],
-    ['Brazil', 'Spain', 1],
-    ['Brazil', 'England', 1],
-    ['Canada', 'Portugal', 1],
-    ['Canada', 'France', 5],
-    ['Canada', 'England', 1],
-    ['Mexico', 'Portugal', 1],
-    ['Mexico', 'France', 1],
-    ['Mexico', 'Spain', 5],
-    ['Mexico', 'England', 1],
-    ['USA', 'Portugal', 1],
-    ['USA', 'France', 1],
-    ['USA', 'Spain', 1],
-    ['USA', 'England', 5],
-    ['Portugal', 'Angola', 2],
-    ['Portugal', 'Senegal', 1],
-    ['Portugal', 'Morocco', 1],
-    ['Portugal', 'South Africa', 3],
-    ['France', 'Angola', 1],
-    ['France', 'Senegal', 3],
-    ['France', 'Mali', 3],
-    ['France', 'Morocco', 3],
-    ['France', 'South Africa', 1],
-    ['Spain', 'Senegal', 1],
-    ['Spain', 'Morocco', 3],
-    ['Spain', 'South Africa', 1],
-    ['England', 'Angola', 1],
-    ['England', 'Senegal', 1],
-    ['England', 'Morocco', 2],
-    ['England', 'South Africa', 7],
-];
 const options = {};
-
-const dataPie =
-    [['Task', 'Hours per Day'],
-        ['Work', 11],
-        ['Eat', 2],
-        ['Commute', 2],
-        ['Watch TV', 2],
-        ['Sleep', 7],
-    ];
 
 
 class RadioButtonsGroup extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataPie: [['Topping', 'Count']],
+            dataSankey: [['From', 'To', 'Weight']],
+        };
+    }
+
+    componentWillMount() {
+        let dataSankey = [['From', 'To', 'Weight']];
+        let dataPie = [['Topping', 'Count']];
+        let dataSankeyUpdates = JSON.parse(localStorage.getItem('sankeyGraph'));
+
+        if (dataSankeyUpdates.length > 0) {
+            dataSankey = dataSankey.concat(dataSankeyUpdates);
+        }
+
+
+        if (localStorage.getItem('Alfredo')) {
+            dataPie.push(['Alfredo', Number(localStorage.getItem('Alfredo'))])
+        }
+        if (localStorage.getItem('Garlic Parmesan White')) {
+            dataPie.push(['Garlic Parmesan White', Number(localStorage.getItem('Garlic Parmesan White'))])
+        }
+        if (localStorage.getItem('Hearty Marinara')) {
+            dataPie.push(['Hearty Marinara', Number(localStorage.getItem('Hearty Marinara'))])
+        }
+        if (localStorage.getItem('Robust Inspired Tomato')) {
+            dataPie.push(['Robust Inspired Tomato', Number(localStorage.getItem('Robust Inspired Tomato'))])
+        }
+        if (localStorage.getItem('BBQ')) {
+            dataPie.push(['BBQ', Number(localStorage.getItem('BBQ'))])
+        }
+        if (localStorage.getItem('Cheese')) {
+            dataPie.push(['Cheese', Number(localStorage.getItem('Cheese'))])
+        }
+
+        this.setState({dataPie});
+        this.setState({dataSankey});
+    }
+
 
     render() {
         const {classes} = this.props;
@@ -77,23 +77,22 @@ class RadioButtonsGroup extends React.Component {
                         width="100%"
                         height="400px"
                         chartType="PieChart"
-                        loader={<div>Loading Pie hart</div>}
-                        data={dataPie}
+                        loader={<div>Loading Pie chart</div>}
+                        data={this.state.dataPie}
                         options={{
-                            title: 'My Daily Activities',
+                            title: 'Pizza Toppings',
                         }}
                         rootProps={{'data-testid': '1'}}
                     />
                 </FormControl>
 
                 <FormControl component="fieldset" className={classes.formControl} fullWidth={true}>
-                    <FormLabel component="legend">Dashboard</FormLabel>
                     <Chart
                         chartType="Sankey"
                         width="100%"
                         height="400px"
                         loader={<div>Loading Sankey Chart</div>}
-                        data={dataSankey}
+                        data={this.state.dataSankey}
                         options={options}
                     />
 

@@ -5,8 +5,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 
 const styles = theme => ({
     root: {
@@ -22,33 +20,33 @@ const styles = theme => ({
 
 class RadioButtonsGroup extends React.Component {
     state = {
-        Pepperoni : '',
-        ItalianSausage: '',
-        SlicedItalianSausage: '',
-        Beef: '',
-        PhilySteak: '',
-        Ham: '',
-        Bacon: '',
-        PremiumChicken: '',
-        Salami: '',
+        Pepperoni : false,
+        ItalianSausage: false,
+        SlicedItalianSausage: false,
+        Beef: false,
+        PhilySteak: false,
+        Ham: false,
+        Bacon: false,
+        PremiumChicken: false,
+        Salami: false,
 
-        CheddarCheese: '',
-        FetaCheese: '',
-        ShreddedParmesanAsiago: '',
-        ShreddedProvoloneCheese: '',
-        BananaPeppers: '',
-        BlackOlives: '',
-        Garlic: '',
+        CheddarCheese: false,
+        FetaCheese: false,
+        ShreddedParmesanAsiago: false,
+        ShreddedProvoloneCheese: false,
+        BananaPeppers: false,
+        BlackOlives: false,
+        Garlic: false,
 
-        GreenPeppers: '',
-        JalepenoPeppers: '',
-        Mushrooms: '',
-        Pineapple: '',
-        Onions: '',
-        RoastedRedPeppers: '',
-        Spinach: '',
-        DicedTomatoes: '',
-        HotSauce: '',
+        GreenPeppers: false,
+        JalepenoPeppers: false,
+        Mushrooms: false,
+        Pineapple: false,
+        Onions: false,
+        RoastedRedPeppers: false,
+        Spinach: false,
+        DicedTomatoes: false,
+        HotSauce: false,
 
 
     };
@@ -60,6 +58,7 @@ class RadioButtonsGroup extends React.Component {
 
     render() {
         const {classes} = this.props;
+        localStorage.setItem('step3', JSON.stringify(this.state));
 
         return (
             <div className={classes.root}>

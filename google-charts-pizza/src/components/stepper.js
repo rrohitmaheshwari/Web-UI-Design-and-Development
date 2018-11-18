@@ -67,6 +67,95 @@ class HorizontalLinearStepper extends React.Component {
     handleNext = () => {
         const {activeStep} = this.state;
         let {skipped} = this.state;
+
+
+        if (activeStep === 2) {
+            // alert("Order Successful!");
+            let data = [];
+            let step1States = JSON.parse(localStorage.getItem('step1'));
+            let step2States = JSON.parse(localStorage.getItem('step2'));
+            let step3States = JSON.parse(localStorage.getItem('step3'));
+            let step1Arr = [];
+            let step2Arr = [];
+            let step3Arr = [];
+
+            for (let keys in step1States) {
+                if (step1States[keys] !== "") {
+                    step1Arr.push(keys);
+                }
+            }
+
+            if (step2States["cheeseCheck"] === true) {
+                step2Arr.push("Cheese");
+                if (localStorage.getItem("Cheese") !== null) {
+                    localStorage.setItem("Cheese", Number(Number(localStorage.getItem("Cheese")) + 1));
+                }
+                else {
+                    localStorage.setItem("Cheese", 20);
+                }
+            }
+            if (step2States["sauceCheck"] === true) {
+                step2Arr.push(step2States["sauceSelected"]);
+
+                let sauceCnt = localStorage.getItem(step2States["sauceSelected"]);
+                if (sauceCnt !== null) {
+                    localStorage.setItem(step2States["sauceSelected"], Number(Number(sauceCnt) + 1));
+                }
+                else {
+                    localStorage.setItem(step2States["sauceSelected"], 10);
+                }
+
+            }
+
+
+            for (let keys in step3States) {
+                if (step3States[keys] === true) {
+                    step3Arr.push(keys);
+                }
+            }
+
+
+            if (step2Arr.length !== 0) {
+                for (let index2 = 0; index2 < step2Arr.length; index2++) {
+                    data.push([
+                        step1Arr[0],
+                        step2Arr[index2], 1
+                    ]);
+
+                    for (let index3 = 0; index3 < step3Arr.length; index3++) {
+                        data.push([
+                            step2Arr[index2],
+                            step3Arr[index3], 1
+                        ]);
+
+                    }
+                }
+            }
+            else {
+                for (let index3 = 0; index3 < step3Arr.length; index3++) {
+                    data.push([
+                        step1Arr[0],
+                        step3Arr[index3],
+                        1
+                    ]);
+
+                }
+
+            }
+
+
+            //update storage for graph render
+            if (JSON.parse(localStorage.getItem('sankeyGraph')) !== null && JSON.parse(localStorage.getItem('sankeyGraph')).length > 0) {
+                let temp = JSON.parse(localStorage.getItem('sankeyGraph'));
+                temp = temp.concat(data);
+                localStorage.setItem('sankeyGraph', JSON.stringify(temp));
+            }
+            else {
+                localStorage.setItem('sankeyGraph', JSON.stringify(data));
+            }
+
+        }
+
         this.setState({
             activeStep: activeStep + 1,
             skipped,

@@ -40,6 +40,7 @@ class RadioButtonsGroup extends React.Component {
 
     render() {
         const {classes} = this.props;
+        localStorage.setItem('step2', JSON.stringify(this.state));
 
         return (
             <div className={classes.root}>
