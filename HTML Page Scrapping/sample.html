@@ -5,26 +5,11 @@
 	<script>
 		$(document).ready(function(){
 
+     $("#fetchData").click(function(){
 
-      function getBody(content) 
-      { 
-       var x = content.indexOf("<body");
-       x = content.indexOf(">", x);    
-       var y = content.lastIndexOf("</body>"); 
-       return content.slice(x + 1, y);
-     } 
+      let data=[];
 
-     // function getContent(content, target)
-     // {
-     //  return target.innerHTML =  getBody(content);
-
-     // }
-
-     $("p").click(function(){
-
-
-
-       var settings = {
+      let settings = {
         'cache': false,
         'dataType': "text",
         "async": true,
@@ -38,14 +23,20 @@
       }
 
       $.ajax(settings).done(function (response) {
-         console.log(getBody(response));
-  
 
-          html = $.parseHTML( response )
-          console.log(html);
-                 
-      });
+        let tr=$(response).find("tr");
 
+        for(let i=1;i<tr.length;i++){
+          let td=$('<div/>').append(tr[i]).find("td");
+          data.push([$('<div/>').append(td[0]).find("td").text().trim(),
+            $('<div/>').append(td[1]).find("td").text().trim(),
+            $('<div/>').append(td[2]).find("td").text().trim(),
+            $('<div/>').append(td[3]).find("td").text().trim()])
+        }
+
+              console.log(data); //need to push this data to DB
+
+            });
     });
 
 
@@ -53,9 +44,6 @@
  </script>
 </head>
 <body>
-
-	<p>click me</p>
-
-
+  <button id="fetchData">Fetch data</button>
 </body>
 </html>
