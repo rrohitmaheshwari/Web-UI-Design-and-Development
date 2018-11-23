@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+
+  #fetchData {
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 23px;
+    color: #FFFFFF;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#fetchData:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+#fetchData:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#fetchData{
+  margin: 20px 5px;
+}
+
+</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function(){
+
+    var dataBase=null;
+
+// Creates a connection to the local database
+connectToDB = function()
+{
+ dataBase = window.openDatabase('cmpe280', '1.0',
+   'cmpe280 Database', 1024*1024*3);
+};
+
+    //Create the table method
+    createNotesTable = function()
+    {
+      dataBase.transaction(function(tx){
+        tx.executeSql(
+          "CREATE TABLE webScrapping (db TEXT,ndb TEXT,dsc TEXT,fgm TEXT)", [],
+          function(){ alert('Offline database created successfully!'); },
+          function(tx, error){ } );
+      });
+    };
+
+
+//"DB","NDB Id","Food Description","Food Group or Manufacturer"
+insertRecord = function(db, ndb, dsc, fgm)
+{
+ dataBase.transaction(function(tx){
+  tx.executeSql("INSERT INTO webScrapping (db, ndb, dsc, fgm) VALUES (?, ?,?,?)", 
+   [db, ndb, dsc, fgm],
+   function(tx, result){ 
+     console.log('Data inserted successfully');
+  },
+  function(){ 
+    alert('The data could not be saved.'); 
+  }
+  );
+});
+};
+
+connectToDB();
+createNotesTable();
+
+
+$("#fetchData").click(function(){
+
+  let data=[];
+
+  let settings = {
+    'cache': false,
+    'dataType': "text",
+    "async": true,
+    "crossDomain": true,
+    "url": "https://ndb.nal.usda.gov/ndb/search/list",
+    "method": "GET",
+    "headers": {
+      "accept": "application/json",
+      "Access-Control-Allow-Origin":"*"
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+
+    let tr=$(response).find("tr");
+
+    for(let i=1;i<tr.length;i++){
+      let td=$('<div/>').append(tr[i]).find("td");
+      data.push([$('<div/>').append(td[0]).find("td").text().trim(),
+        $('<div/>').append(td[1]).find("td").text().trim(),
+        $('<div/>').append(td[2]).find("td").text().trim(),
+        $('<div/>').append(td[3]).find("td").text().trim()])
+    }
+
+              console.log(data); //need to push this data to DB
+
+              try{
+               var element = document.getElementById("myTable");
+               element.parentNode.removeChild(element);
+               // console.log("myTable Deleted ");
+             }
+             catch(err){
+              // console.log("myTable element not present yet");
+            }
+
+            let x = document.createElement("TABLE");
+            x.setAttribute("id", "myTable");
+            x.setAttribute("class","table table-striped");
+            document.body.appendChild(x);
+
+            let th = document.createElement("TR");
+            th.setAttribute("id", "myTH");
+            document.getElementById("myTable").appendChild(th);
+
+
+            let head=["DB","NDB Id","Food Description","Food Group or Manufacturer"]
+
+            for(let y=0;y<4;y++){
+
+              let z = document.createElement("TH");
+              let t = document.createTextNode(head[y]);
+              z.appendChild(t);
+              document.getElementById("myTH").appendChild(z);
+            }
+
+            for(let i=0;i<data.length;i++)
+            {
+
+              let y = document.createElement("TR");
+              y.setAttribute("id", "myTr"+i);
+              document.getElementById("myTable").appendChild(y);
+
+
+              for(let s=0;s<4;s++){
+
+                let z = document.createElement("TD");
+                let t = document.createTextNode(data[i][s]);
+                z.appendChild(t);
+                document.getElementById("myTr"+i).appendChild(z);
+              }
+            }
+
+            //Inserting data into DB
+            for(let i=0;i<data.length;i++)
+            {
+
+              insertRecord(data[i][0], data[i][1], data[i][2], data[i][3]);
+
+            }
+
+          });
+
+
+});
+
+
+});
+</script>
+</head>
+<body>
+  <div style="text-align: center;">
+  <button id="fetchData">Fetch data and Save in DB</button>
+</div>
+</body>
+</html>
