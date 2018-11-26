@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+.lakeLabel{
+  font-size: 13px;
+  font-weight: 500;
+  color: black;
+}

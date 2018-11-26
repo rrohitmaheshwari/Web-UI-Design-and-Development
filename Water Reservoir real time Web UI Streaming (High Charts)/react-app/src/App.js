@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'antd/dist/antd.css';
+import SimpleMap from './components/simpleMap'
 
 class App extends Component {
   render() {
@@ -9,6 +11,7 @@ class App extends Component {
           <p>
               Water Reservoir real time Web UI Streaming
           </p>
+          <SimpleMap/>
 
         </header>
       </div>
