@@ -22,7 +22,7 @@ class LiquidApp extends Component {
     componentDidMount() {
         this.interval = setInterval(() => this.setState(
             {
-                value: (this.state.value%2==0)?(random.int(1, 10) + this.state.value)%100:Math.abs(this.state.value-random.int(1, 10))%100,
+                value: (this.state.value%2===0)?(random.int(1, 10) + this.state.value)%100:Math.abs(this.state.value-random.int(1, 10))%100,
             }
             ), 5000);
     }
@@ -125,7 +125,6 @@ class LiquidApp extends Component {
                         </Button>,
                     ]}
                 >
-                    <p><b>Current Level:</b></p>
                     <LiquidFillGauge
                         style={{margin: '0 auto'}}
                         width={50 * 2}
@@ -177,6 +176,10 @@ class LiquidApp extends Component {
                             this.setmodalVisible(true);
                         }}
                     />
+                    <p><b>% of Capacity : </b>{this.state.value}%</p>
+                    <p><b>% of Historical Average : </b>{this.props.historicalAvg}%</p>
+
+
                 </Modal>
             </div>
         );
