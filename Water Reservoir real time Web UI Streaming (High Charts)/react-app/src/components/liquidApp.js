@@ -4,6 +4,16 @@ import React, {Component} from 'react';
 import LiquidFillGauge from 'react-liquid-gauge';
 import {Modal, Button} from 'antd';
 import random from 'generate-random-data';
+import {Chart} from "react-charts";
+
+const data = {
+    axis: [1, 2, 3],
+    lines: [
+        {data: [{value: 10}, {value: 10}, {value: 10}]},
+        {data: [{value: 10}, {value: 10}, {value: 10}]},
+        {data: [{value: 10}, {value: 10}, {value: 10}]}
+    ]
+};
 
 
 class LiquidApp extends Component {
@@ -22,9 +32,9 @@ class LiquidApp extends Component {
     componentDidMount() {
         this.interval = setInterval(() => this.setState(
             {
-                value: (this.state.value%2===0)?(random.int(1, 10) + this.state.value)%100:Math.abs(this.state.value-random.int(1, 10))%100,
+                value: (this.state.value % 2 === 0) ? (random.int(1, 10) + this.state.value) % 100 : Math.abs(this.state.value - random.int(1, 10)) % 100,
             }
-            ), 5000);
+        ), 5000);
     }
 
     componentWillUnmount() {
@@ -33,6 +43,8 @@ class LiquidApp extends Component {
 
 
     render() {
+
+
         // this.getData();
         const radius = 17;
         const interpolate = interpolateRgb(this.startColor, this.endColor);
@@ -112,7 +124,7 @@ class LiquidApp extends Component {
                         this.setmodalVisible(true);
                     }}
                 />
-                <p  className={'lakeLabel'} style={{marginLeft: '-30px',width:'150px'}}>{this.props.name}</p>
+                <p className={'lakeLabel'} style={{marginLeft: '-30px', width: '150px'}}>{this.props.name}</p>
 
                 <Modal
                     title={this.props.name}
@@ -125,57 +137,37 @@ class LiquidApp extends Component {
                         </Button>,
                     ]}
                 >
-                    <LiquidFillGauge
-                        style={{margin: '0 auto'}}
-                        width={50 * 2}
-                        height={50 * 2}
-                        value={this.state.value}
-                        percent="%"
-                        textSize={1.4}
-                        textOffsetX={0}
-                        textOffsetY={0}
-                        textRenderer={(props) => {
-                            const value = Math.round(props.value);
-                            const radius = Math.min(props.height / 2, props.width / 2);
-                            const textPixels = (props.textSize * radius / 2);
-                            const valueStyle = {
-                                fontSize: textPixels
-                            };
-                            const percentStyle = {
-                                fontSize: textPixels * 0.7
-                            };
 
-                            return (
-                                <tspan>
-                                    <tspan className="value" style={valueStyle}>{value}</tspan>
-                                    <tspan style={percentStyle}>{props.percent}</tspan>
-                                </tspan>
-                            );
+                    <div
+                        style={{
+                            width: "100px",
+                            height: "150px",
+                            marginLeft: "40%"
                         }}
-                        riseAnimation
-                        waveAnimation
-                        waveFrequency={2}
-                        waveAmplitude={1}
-                        gradient
-                        gradientStops={gradientStops}
-                        circleStyle={{
-                            fill: fillColor
-                        }}
-                        waveStyle={{
-                            fill: fillColor
-                        }}
-                        textStyle={{
-                            fill: color('#444').toString(),
-                            fontFamily: 'Arial'
-                        }}
-                        waveTextStyle={{
-                            fill: color('#fff').toString(),
-                            fontFamily: 'Arial'
-                        }}
-                        onClick={() => {
-                            this.setmodalVisible(true);
-                        }}
-                    />
+                    >
+                        
+                        <Chart
+                            data={[
+                                {
+                                    label: "% of Capacity",
+                                    data: [[0, this.state.value]]
+                                },
+                                {
+                                    label: "% of not Filled",
+                                    data: [[0, 100 - this.state.value]]
+                                }
+                            ]}
+                            series={{type: 'bar'}}
+                            axes={[
+                                {primary: true, type: 'ordinal', position: 'bottom'},
+                                {position: 'left', type: 'linear', stacked: true},
+                            ]}
+                            primaryCursor
+                            secondaryCursor
+                            tooltip
+                        />
+                    </div>
+
                     <p><b>% of Capacity : </b>{this.state.value}%</p>
                     <p><b>% of Historical Average : </b>{this.props.historicalAvg}%</p>
 
